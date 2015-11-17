@@ -1,3 +1,4 @@
 from django.contrib import admin
+from shelf_map.models import Shelf
 
-# Register your models here.
+admin.site.register(Shelf)

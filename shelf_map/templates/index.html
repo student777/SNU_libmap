@@ -1,0 +1,22 @@
+<form>
+    <h3>도서번호 첫째 줄을 입력하세요</h3>
+    <input type='text' name="major_id">
+    <h3>도서번호 두번째 줄을 입력하세요(TODO)</h3>
+    <input type='text' name="minor_id">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+
+
+{%if shelfs%}
+도서 목록
+{% endif %}
+{% for shelf in shelfs %}
+<div>{{shelf}}</div>
+{% endfor%}
+
+{% if result %}
+nearest: {{result}}<br>
+서가위치는 {{result.col}} , {{result.row}} 입니다 <br>
+
+{% endif %}
