@@ -8,7 +8,7 @@ class Shelf(models.Model):
     minor_id = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.col + self.row + '/' + str(self.major_id) + ' ' + self.minor_id
+        return str(self.major_id) + ' ' + self.minor_id
 
 
 def create_shelf(col, row, major_id, minor_id):
