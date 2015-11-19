@@ -1,0 +1,60 @@
+
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shelf Map-list</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link href="/static/cover.css" rel="stylesheet">
+    <style id="style-1-cropbar-clipper">
+    .en-markup-crop-options {
+        top: 18px !important;
+        left: 50% !important;
+        margin-left: -100px !important;
+        width: 200px !important;
+        border: 2px rgba(255,255,255,.38) solid !important;
+        border-radius: 4px !important;
+    }
+    .en-markup-crop-options div div:first-of-type {
+        margin-left: 0px !important;
+    }
+    </style></head>
+
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <h3 class="masthead-brand"><a href="/">Shelf map</a></h3>
+            <ul class="nav masthead-nav">
+              <li id="btn1"> <a href="/">번호 검색</a></li>
+              <li id ="btn2"><a href="/">제목 검색</a></li>
+              <li class="active"><a href="#">자료 목록</a></li>
+            </ul>
+            <div>
+                <table class="table">
+                 <caption>1자료실</caption>
+                      <thead>
+                        <tr>
+                          <th>id</th>
+                          <th>위치</th>
+                          <th>major_id</th>
+                          <th>minor_id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for item in list%}
+                        <tr>
+                          <th scope="row">{{item.id}}</th>
+                          <td>{{item.col}}{{item.row}}</td>
+                          <td>{{item.major_id}}</td>
+                          <td>{{item.minor_id}}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
+</body></html>
+

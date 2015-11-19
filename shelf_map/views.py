@@ -17,3 +17,8 @@ def index(request):
         return render(request, 'index.html', {'result_msg': result_msg})
     else:
         return render(request, 'index.html')
+
+
+def list(request):
+    list = Shelf.objects.all()
+    return render(request, 'list.html', {'list': list})
