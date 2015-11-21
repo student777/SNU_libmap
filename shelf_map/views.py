@@ -14,8 +14,8 @@ def index(request):
         return render(request, 'index.html', {'result': result})
     elif request.GET.get('title'):
         title = request.GET.get('title')
-        result_msg = search(title)
-        return render(request, 'index.html', {'result_msg': result_msg})
+        name_msg_list = search(title)
+        return render(request, 'index.html', {'name_msg_list': name_msg_list, })
     else:
         return render(request, 'index.html')
 

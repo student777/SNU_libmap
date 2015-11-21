@@ -35,12 +35,12 @@
                     </ul>
                   </nav>
                 </div>
-            </div>
-          {%if not result and not result_msg %}
+                </div>
+          {%if not request.GET %}
           <img id="logo" width="30%" src="/media/logo.jpeg"/>
           {% endif %}
           <div>
-            <h2 class="cover-heading"></h2>
+    <h2 class="cover-heading"></h2>
 
             <form id="num_form">
               <div class="form-group">
@@ -69,9 +69,29 @@
             </div>
         {% endif %}
 
-        {% if result_msg %}
-            {{result_msg|linebreaks}}
+        {% if name_msg_list %}
+        <table class="table">
+           <caption>{{request.GET.title}} 에 대한 검색결과(최대 15권 검색)'</caption>
+            <thead>
+              <tr>
+              <th>id</th>
+              <th>제목</th>
+              <th>번호,위치</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for name, msg in name_msg_list %}
+              <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{name}}</td>
+              <td>{{msg}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
         {% endif %}
+
+
         </div>
           <div class="mastfoot">
             <div class="inner">
