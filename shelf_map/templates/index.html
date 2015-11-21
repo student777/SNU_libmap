@@ -69,7 +69,7 @@
             </div>
         {% endif %}
 
-        {% if name_msg_list %}
+        {% if info_list %}
         <table class="table">
            <caption>{{request.GET.title}} 에 대한 검색결과(최대 15권 검색)'</caption>
             <thead>
@@ -80,11 +80,11 @@
               </tr>
             </thead>
             <tbody>
-              {% for name, msg in name_msg_list %}
+              {% for name, location in info_list %}
               <tr>
               <th scope="row">{{forloop.counter}}</th>
-              <td>{{name}}</td>
-              <td>{{msg}}</td>
+              <td><a class="location">{{name}}</a></td>
+              <td>{{location}}</td>
               </tr>
               {% endfor %}
             </tbody>
@@ -117,6 +117,9 @@
             $('#btn2').toggleClass("active");
             $(this).toggleClass("active");
         });
+        $('.location').click(function(){
+          $(this).append('<p><img width="50%" src="/media/map.png"/></p>');
+        })
     </script>
 </body></html>
 
