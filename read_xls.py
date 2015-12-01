@@ -8,7 +8,9 @@ from django.core.exceptions import ValidationError
 
 
 def main():
-    workbook = xlrd.open_workbook('static/4자료실.xlsx')  # HERE
+    n = input('몇자료실?')
+    filename = 'static/%s자료실.xlsx' % n
+    workbook = xlrd.open_workbook(filename)
     workbook_index = workbook.sheet_by_index(0)
 
     for i in range(0, int(workbook_index.nrows/2)):
@@ -16,7 +18,7 @@ def main():
         minor_id_list = workbook_index.row_values(2*i+1)
         for j in range(0, len(major_id_list)):
             try:
-                shelf_map.models.create_shelf_4(chr(j+65), str(i/2+1), major_id_list[j], minor_id_list[j])  # HERE
+                shelf_map.models.create_shelf_1(chr(j+65), str(i/2+1), major_id_list[j], minor_id_list[j])
             except ValidationError:
                 continue
 
