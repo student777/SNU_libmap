@@ -1,15 +1,14 @@
-import urllib.request
 from bs4 import BeautifulSoup
 import re
 from shelf_map.models import Shelf
 from django.http import Http404
+import requests
 
 
 def search_title(text):
     url = 'http://snu-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/search.do?ct=facet&fctN=facet_library&fctV=MAIN&rfnGrp=1&rfnGrpCounter=1&vid=82SNU&mode=Basic&ct=Next%20Page&tab=book&fn=search&indx=61&dscnt=0&vl(freeText0)='
-    r = urllib.request.urlopen(url+text)
-    data = r.read().decode('utf-8')
-    soup = BeautifulSoup(data, 'html.parser')
+    data = requests.get(url+text)
+    soup = BeautifulSoup(data.text, 'html.parser')
     i = 0
     info_list = []
     for item in soup.find_all(class_="EXLSummaryFields"):
