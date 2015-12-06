@@ -13,7 +13,7 @@ def main():
     room_nums = pickle.load(f)
     f.close()
     
-    for room_name in room_nums:
+    for room_name in room_nums.keys():
         filename = room_name
         workbook = xlrd.open_workbook(filename)
         workbook_index = workbook.sheet_by_index(0)
@@ -24,7 +24,7 @@ def main():
             
             for j in range(0, len(major_id_list)):
                 try:
-                    shelf_map.models.create_shelf(room_nums[roomname], chr(j+65), str(i/2+1), major_id_list[j], minor_id_list[j])
+                    shelf_map.models.create_shelf(room_nums[room_name], chr(j+65), str(i/2+1), major_id_list[j], minor_id_list[j])
                 except ValidationError:
                     continue
 
