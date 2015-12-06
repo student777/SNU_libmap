@@ -71,19 +71,21 @@
 
         {% if info_list %}
         <table class="table">
-           <caption>{{request.GET.title}} 에 대한 검색결과(최대 15권 검색)'</caption>
+           <caption>{{request.GET.title}} 에 대한 검색결과(최대 15권 검색)</caption>
             <thead>
               <tr>
               <th>id</th>
               <th>제목</th>
-              <th>번호,위치</th>
+              <th>번호</th>
+              <th>위치</th>
               </tr>
             </thead>
             <tbody>
-              {% for name, location in info_list %}
+              {% for name, major_id, location in info_list %}
               <tr>
               <th scope="row">{{forloop.counter}}</th>
               <td><a class="location">{{name}}</a></td>
+              <td>{{major_id}}</td>
               <td>{{location}}</td>
               </tr>
               {% endfor %}

@@ -11,7 +11,7 @@ def index(request):
             result = Shelf.objects.filter(major_id=major_id, minor_id__lte=minor_id).order_by('minor_id').last()
         else:
             result = Shelf.objects.filter(major_id__lte=major_id).order_by('major_id').last()
-        return render(request, 'index.html', {'result': result, 'shelf_num': result.__class__.__name__, })
+        return render(request, 'index.html', {'result': result, 'shelf_num': result.room_num, })
     elif request.GET.get('title'):
         title = request.GET.get('title')
         info_list = search_title(title)
