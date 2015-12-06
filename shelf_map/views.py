@@ -11,12 +11,10 @@ def index(request):
             result = Shelf.objects.filter(major_id=major_id, minor_id__lte=minor_id).order_by('minor_id').last()
         else:
             result = Shelf.objects.filter(major_id__lte=major_id).order_by('major_id').last()
-        return render(request, 'index.html', {'result': result, 'shelf_num': result.room_num, })
+        return render(request, 'index.html', {'result': result, })
     elif request.GET.get('title'):
         title = request.GET.get('title')
         info_list = search_title(title)
         return render(request, 'index.html', {'info_list': info_list, })
     else:
         return render(request, 'index.html')
-
-

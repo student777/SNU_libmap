@@ -22,15 +22,16 @@ def search_title(text):
         ss = re.search(r"[-+]?\d*\.\d+|\d+", s)
         if ss is None:
             sss = s.replace(' ', '')
-            location = sss + '은(는) 올바른 입력 값이 아닙니다(TODO)\n'
+            major_id = '검색 불가'
+            location = sss + '검색 불가\n'
         else:
             major_id = ss.group()
             shelf_list = Shelf.objects.filter(major_id__lte=major_id).order_by('major_id')
             if shelf_list.exists():
                 shelf = shelf_list.last()
-                location = shelf.room_num + '열람실 ' + shelf.col + shelf.row
+                location = shelf.room_num + '자료실' + shelf.col + shelf.row
             else:
-                location = major_id + ' 근처의 도서번호가 존재하지 않습니다(7열람실)\n'
+                location = major_id + '\n'
         info_list.append((name, major_id, location))
         i += 1
     return info_list
