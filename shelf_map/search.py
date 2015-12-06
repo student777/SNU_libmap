@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import re
 from shelf_map.models import Shelf
-from django.http import Http404
 import requests
 
 
