@@ -61,9 +61,15 @@ def create_shelf(room_num, col, row, major_id, minor_id):
                 a.save()
             except:
                 pass
-                # 혹시나 잘못 입력된 데이터 (디버깅)
-                #print(room_num, col, row, major_id)
-        
+
+        elif major_id == 'KOCKA':
+            a.major_leadingChr = True
+            a.major_bigBook = False
+            try:
+                a.room_num, a.col, a.row, a.major_id, a.minor_id = room_num, col, row, float(major_id[5:]), minor_id
+                a.save()
+            except:
+                pass
         else:
             pass
     

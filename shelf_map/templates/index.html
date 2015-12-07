@@ -29,7 +29,7 @@
                   <h3 class="masthead-brand"><a href="/">Shelf map</a></h3>
                   <nav>
                     <ul class="nav masthead-nav">
-                      <li id ="btn1" class="active"><a href="#">제목 검색</a></li>
+                      <li id ="btn1" class="active"><a href="#">통합 검색</a></li>
                       <li id="btn2" ><a href="#">번호 검색</a></li>
                       <li><a href="admin">admin</a></li>
                     </ul>
@@ -75,7 +75,7 @@
 
         {% if info_list %}
         <table class="search_result table">
-           <caption>{{request.GET.title}} 에 대한 검색결과(최대 15권 검색)</caption>
+           <caption>{{request.GET.title}} 에 대한 검색결과(최대 50권 검색)</caption>
             <thead>
               <tr>
               <th>id</th>

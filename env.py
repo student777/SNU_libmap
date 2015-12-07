@@ -12,8 +12,8 @@ django.setup()
 
 def main():
     f = open("static/자료실.pickle", "wb")
-    room_nums = {'static/1자료실_대.xlsx': 1, 'static/2자료실_대.xlsx': 2, 'static/3자료실.xlsx': 3, 'static/4자료실.xlsx': 4,
-                 'static/5자료실.xlsx': 5, 'static/6자료실.xlsx': 6}
+    room_nums = {'static/1자료실.xlsx': 1, 'static/2자료실.xlsx': 2, 'static/3자료실.xlsx': 3, 'static/4자료실.xlsx': 4,
+                 'static/5자료실.xlsx': 5, 'static/6자료실.xlsx': 6, 'static/7자료실.xlsx': 7}
     pickle.dump(room_nums, f)
     f.close()
 
