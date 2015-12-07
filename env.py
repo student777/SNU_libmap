@@ -3,18 +3,19 @@
 # pickle 모듈을 이용해서 만들어두려고 하는데 이 코드를 실행하면 static 내에 환경 변수를 저장하는 pickle 파일들울 만드는게 나을 것 같아요.
 # 이러면 사용할 때는 static/해당하는 pickle 파일을 open해서 pickle.load만 해서 쓰면 될 것 같아요
 
-import os, pickle
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shelf_map.settings') 
-import django 
-django.setup() 
-from django.core.exceptions import ValidationError 
+import os
+import pickle
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shelf_map.settings')
+import django
+django.setup()
+
 
 def main():
     f = open("static/자료실.pickle", "wb")
-    room_nums = {'static/1자료실_대.xlsx' : 1, 'static/2자료실_대.xlsx' : 2, 'static/3자료실.xlsx' : 3, 'static/4자료실.xlsx' : 4,
-                 'static/5자료실.xlsx' : 5, 'static/6자료실.xlsx' : 6}
+    room_nums = {'static/1자료실_대.xlsx': 1, 'static/2자료실_대.xlsx': 2, 'static/3자료실.xlsx': 3, 'static/4자료실.xlsx': 4,
+                 'static/5자료실.xlsx': 5, 'static/6자료실.xlsx': 6}
     pickle.dump(room_nums, f)
     f.close()
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
     main()
