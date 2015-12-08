@@ -11,7 +11,7 @@ def search_title(text):
     i = 0
     info_list = []
     for item in soup.find_all(class_="EXLSummaryFields"):
-        if i > 49:
+        if i > 29:
             break
         name = item.a.text
         try:

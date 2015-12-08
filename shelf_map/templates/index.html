@@ -46,7 +46,7 @@
 
             <form id="title_form">
               <div class="form-group">
-                <label>도서 제목을 입력해주세요</label>
+                <label>도서 제목, 서가번호, 저자명을 입력해주세요</label>
                 <input placeholder="ex)총, 균, 쇠" type="text" class="form-control" name="title">
               </div>
               <button type="submit" class="btn btn-lg btn-default">검색</button>
@@ -75,7 +75,7 @@
 
         {% if info_list %}
         <table class="search_result table">
-           <caption>{{request.GET.title}} 에 대한 검색결과(최대 50권 검색)</caption>
+           <caption>{{request.GET.title}} 에 대한 검색결과(최대 30권 검색)</caption>
             <thead>
               <tr>
               <th>id</th>
