@@ -22,11 +22,11 @@ def create_shelf(room_num, col, row, major_id, minor_id):
 
     a = Shelf()
 
-    if type(major_id) == type(0.0):
+    if isinstance(major_id, float):
         a.room_num, a.col, a.row, a.major_id, a.minor_id = room_num, col, row, major_id, minor_id
         a.save()
 
-    elif type(major_id) == type("asd"):
+    elif isinstance(major_id, str):
         if major_id in IGNORE_CHRSET:
             pass
 
@@ -35,27 +35,27 @@ def create_shelf(room_num, col, row, major_id, minor_id):
             try:
                 a.room_num, a.col, a.row, a.major_id, a.minor_id = room_num, col, row, float(major_id[1:]), minor_id
                 a.save()
-            except:
-                print(room_num, col, row, major_id, minor_id, 'label1')
+            except Exception as e:
+                print(room_num, col, row, major_id, minor_id, 'error1', e)
 
         elif major_id.startswith('KOCKA'):
             a.major_leadingChr = 'KOCKA'
             try:
                 a.room_num, a.col, a.row, a.major_id, a.minor_id = room_num, col, row, float(major_id[6:]), minor_id
                 a.save()
-            except:
-                print(room_num, col, row, major_id, minor_id, 'label2')
+            except Exception as e:
+                print(room_num, col, row, major_id, minor_id, 'error2', e)
 
         elif bool(re.match("[a-zA-Z]", major_id[0])):
             a.major_leadingChr = major_id[0]
             try:
                 a.room_num, a.col, a.row, a.major_id, a.minor_id = room_num, col, row, float(major_id[1:]), minor_id
                 a.save()
-            except:
-                print(room_num, col, row, major_id, minor_id, 'label3')
+            except Exception as e:
+                print(room_num, col, row, major_id, minor_id, 'error3', e)
 
         else:
-            print(room_num, col, row, major_id, minor_id, 'label4')
+            print(room_num, col, row, major_id, minor_id, 'error4')
 
     else:
-        print(room_num, col, row, major_id, minor_id, 'label5')
+        print(room_num, col, row, major_id, minor_id, 'error5')

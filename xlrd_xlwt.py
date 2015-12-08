@@ -12,3 +12,29 @@ for j in [0,1,2,3,4,5,6,7,8,9,10,11,12]:
 
 
 wbk.save('test.xls')
+
+
+a = xlrd.open_workbook('6자료실.xlsx')
+a = a.sheet_by_index(0)
+wbk = xlwt.Workbook()
+sheet = wbk.add_sheet('Sheet 1', cell_overwrite_ok=True)
+for i in range(0, a.nrows):
+    for j in range(0, a.ncols):
+        x = None
+        try:
+            x = a.cell_value(i, j)
+        except:
+            pass
+        try:
+            if isinstance(x, str):
+                x = float(x)
+                print((x, type(x)))
+
+        except:
+            pass
+        sheet.write(i, j, x)
+
+
+
+wbk.save('test.xls')
+

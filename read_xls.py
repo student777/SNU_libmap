@@ -28,6 +28,6 @@ def main():
                 except ValidationError:
                     continue
 
-        print(room_name+'자료실 추가 완료')
+        print(room_name+'추가 완료')
 if __name__ == '__main__':
     main()
