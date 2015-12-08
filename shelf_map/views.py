@@ -9,7 +9,6 @@ def index(request):
         title = request.GET.get('title')
         info_list = search_title(title)
         return render(request, 'index.html', {'info_list': info_list, })
-        # TODO: 대분류 도서 검색, 1,7 자료실 단행본 도서검색, validation error alert, 통합검색에서 서가번호검색지원? frontend design, UI
     elif request.GET.get('major_id'):
         major_id = request.GET.get('major_id')
         try:
