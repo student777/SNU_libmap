@@ -2,4 +2,4 @@ venv/
 __pycache__/
 *.pyc
 migrations/
-ngrok
+key.pem
