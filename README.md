@@ -1,5 +1,5 @@
 #Shelf map
 
-https://shelf-map-test-student777.c9users.io/
+http://libmap.snu.ac.kr
 
-http://wordpress.~
+http://snulibmap.wordpress.com/
