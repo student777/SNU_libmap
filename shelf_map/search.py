@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import re
 from shelf_map.models import Shelf
 import requests
+from django.http import Http404
 
 
 def search_title(text):
@@ -15,6 +16,7 @@ def search_title(text):
             break
         name = item.a.text
         try:
+            # TODO: minor_id 정규표현식
             s = item.find(class_="EXLAvailabilityCallNumber").text
         except AttributeError:
             continue
@@ -25,12 +27,27 @@ def search_title(text):
             location = sss + '검색 불가\n'
         else:
             major_id = ss.group()
-            shelf_list = Shelf.objects.filter(major_id__lte=major_id).order_by('major_id')
+            #TODO: shelf=find_shelf(major_id, minor_id); name, room_num, colrow = shelf.name, shelf.major_id, shelf.minor, shelf.row+shelf.col;
+            shelf_list = Shelf.objects.filter(major_id__lte=major_id).exclude(room_num='1-1').exclude(room_num='7-1').order_by('major_id')
             if shelf_list.exists():
                 shelf = shelf_list.last()
-                location = shelf.room_num + '자료실' + shelf.col + shelf.row
+                room_num = shelf.room_num
+                colrow = shelf.col + shelf.row
             else:
                 location = major_id + '\n'
-        info_list.append((name, major_id, location))
+        info_list.append((name, major_id, room_num, colrow))
         i += 1
     return info_list
+
+
+def find_shelf(major_id, minor_id=''):
+    if Shelf.objects.filter(major_id=major_id, major_leadingChr=None).exclude(room_num='1-1').exclude(room_num='7-1').count() > 1:
+        if minor_id is '':
+            result = Shelf.objects.filter(major_id=major_id, major_leadingChr=None).exclude(room_num='1-1').exclude(room_num='7-1').first()
+        else:
+            result = Shelf.objects.filter(major_id=major_id, minor_id__lte=minor_id, major_leadingChr=None).exclude(room_num='7-1').exclude(room_num='1-1').order_by('minor_id').last()
+    else:
+        result = Shelf.objects.filter(major_id__lte=major_id, major_leadingChr=None).exclude(room_num='7-1').exclude(room_num='1-1').order_by('major_id').last()
+    if result is None: 
+        result = Shelf(room_num='검색불가', col='', row='', major_id=0, minor='')
+    return result

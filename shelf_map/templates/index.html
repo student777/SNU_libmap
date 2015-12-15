@@ -1,133 +1,81 @@
-<html><head>
+<html>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/media/logo.jpeg">
+    <link rel="icon" href="/media/icon.png">
     <title>Shelf Map</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <link href="/static/cover.css" rel="stylesheet">
-    <style id="style-1-cropbar-clipper">
-    .en-markup-crop-options {
-        top: 18px !important;
-        left: 50% !important;
-        margin-left: -100px !important;
-        width: 200px !important;
-        border: 2px rgba(255,255,255,.38) solid !important;
-        border-radius: 4px !important;
-    }
-    .en-markup-crop-options div div:first-of-type {
-        margin-left: 0px !important;
-    }
-    </style></head>
+    <link href="/static/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  </head>
 
   <body>
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
-            <div class="masthead clearfix">
-                <div class="inner">
-                  <h3 class="masthead-brand"><a href="/">Shelf map</a></h3>
-                  <nav>
-                    <ul class="nav masthead-nav">
-                      <li id ="btn1" class="active"><a href="#">통합 검색</a></li>
-                      <li id="btn2" ><a href="#">번호 검색</a></li>
-                      <li><a href="admin">admin</a></li>
-                    </ul>
-                  </nav>
+            <div>
+              <a href="/"><img id="logo" width="70%" src="/media/logo.jpeg"/></a>
+              <form id="title_form">
+                <div class="form-group">
+                  <label style="font-size:15px">제목 또는, 서가번호, 저자명을 입력해주세요</label>
+                  <input placeholder="ex)총, 균, 쇠" type="text" class="form-control" name="title">
                 </div>
-                </div>
-          {%if not request.GET %}
-          <img id="logo" width="30%" src="/media/logo.jpeg"/>
-          {% endif %}
-          <div>
-    <h2 class="cover-heading"></h2>
-
-
-
-            <form id="title_form">
-              <div class="form-group">
-                <label>도서 제목, 서가번호, 저자명을 입력해주세요</label>
-                <input placeholder="ex)총, 균, 쇠" type="text" class="form-control" name="title">
-              </div>
-              <button type="submit" class="btn btn-lg btn-default">검색</button>
-            </form>
-
-            <form id="num_form" style="display: none">
-              <div class="form-group">
-                <label>도서번호 첫째 줄을 입력하세요</label>
-                <input placeholder="ex)809.944" type="text" class="form-control" name="major_id">
-                <label>도서번호 두번째 줄을 입력하세요</label>
-                <input placeholder="ex)M312d" type="text" class="form-control" name="minor_id">
-              </div>
-              <button type="submit" class="btn btn-lg btn-default">검색</button>
-            </form>
-
-
-          </div>
-        <div>
-        {% if result %}
-            <div class="search_result">
-            nearest: {{result}}<br>
-            서가위치는 {{result.room_num}} 자료실 {{result.col}} , {{result.row}}  입니다 <br>
-            <img width="50%" src="/media/map.png"/>
+                <button type="submit" class="btn btn-lg btn-default">검색</button>
+              </form>
             </div>
-        {% endif %}
-
-        {% if info_list %}
-        <table class="search_result table">
-           <caption>{{request.GET.title}} 에 대한 검색결과(최대 30권 검색)</caption>
-            <thead>
-              <tr>
-              <th>id</th>
-              <th>제목</th>
-              <th>번호</th>
-              <th>위치</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for name, major_id, location in info_list %}
-              <tr>
-              <th scope="row">{{forloop.counter}}</th>
-              <td><a class="location">{{name}}</a></td>
-              <td>{{major_id}}</td>
-              <td>{{location}}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
-
-
-        </div>
+            
+            <div id="map" style="display: none;"><img  width="100%" height="50%" src="/media/map.png"/></div>
+            
+            {% if info_list %}
+            <div>
+              <table class="search_result table">
+                 <caption>{{request.GET.title}} 에 대한 검색결과(최대 30권 검색)</caption>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="col-md-9">제목</th>
+                      <th class="col-md-1">번호</th>
+                      <th class="col-md-2">위치</th>  
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for name, major_id, room_num, colrow in info_list %}
+                    <tr class="book">
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td style="text-align:left">{{name}}</td>
+                      <td>{{major_id}}</td>
+                      <td>{{room_num}}자료실<br>{{colrow}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+            {% endif %}
+        
           <div class="mastfoot">
-            <div class="inner">
-              <p>2015 창의융합프로젝트</p>
-            </div>
+            <a style="font-size:15px" href="https://www.facebook.com/code4gwanak/?fref=ts">Code4Gwanak</a>&nbsp;&nbsp;<br>
+            <a href="http://snulibmap.wordpress.com/"> <i class="fa fa-wordpress fa-2x"></i></a>&nbsp;&nbsp;
+            <a href="https://github.com/student777/shelf_map"><i class="fa fa-github fa-2x"></i></a>
           </div>
+
         </div>
       </div>
     </div>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-    <script>
-        $('#btn2').click(function(){
-            $('#num_form').show();
-            $('#btn1').toggleClass("active");
-            $(this).toggleClass("active");
-            $('#title_form').hide();
-            $('.search_result').hide();
-        });
-        $('#btn1').click(function(){
-            $('#num_form').hide();
-            $('#title_form').show();
-            $('#btn2').toggleClass("active");
-            $(this).toggleClass("active");
-            $('.search_result').hide();
-        });
-        $('.location').click(function(){
-          $(this).append('<p><img width="50%" src="/media/map.png"/></p>');
-        })
+    <script>        
+      $('.book').click(function(){
+        $('#map').show();
+        var location = $(this).children().last().text()
+        $('#map>p').hide()
+        $('#map').append('<p>'+location+'</p')
+        $('html,body').scrollTop(0);
+      })
     </script>
-</body></html>
+    
+  </body>
+</html>
 
