@@ -2,9 +2,12 @@ from django.shortcuts import render
 from shelf_map.search import search_title
 from shelf_map.models import Shelf
 from django.http import Http404
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 
+@xframe_options_exempt
 def index(request):
+    print_client_ip(request)
     if request.GET.get('title'):
         title = request.GET.get('title')
         info_list = search_title(title)
@@ -31,3 +34,12 @@ def index(request):
 
     else:
         return render(request, 'index.html')
+
+
+def print_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    print(ip)
