@@ -14,6 +14,7 @@ def search_title(text):
         if i > 29:
             break
         name = item.a.text
+        link = 'http://snu-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/' + item.a['href']
         try:
             num1 = item.find(class_="EXLAvailabilityCallNumber").text
         except AttributeError:
@@ -44,7 +45,7 @@ def search_title(text):
             else:
                 room_num = '확인불가'
                 colrow = ''
-        info_list.append((name, major_id, minor_id, room_num, colrow))
+        info_list.append((name, major_id, minor_id, room_num, colrow, link))
         i += 1
     return info_list
 

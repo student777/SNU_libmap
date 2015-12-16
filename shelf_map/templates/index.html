@@ -38,12 +38,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for name, major_id, minor_id, room_num, colrow in info_list %}
-                    <tr class="book">
+                    {% for name, major_id, minor_id, room_num, colrow, link in info_list %}
+                    <tr>
                       <th scope="row">{{forloop.counter}}</th>
-                      <td style="text-align:left">{{name}}</td>
+                      <td style="text-align:left"><a href="{{link}}">{{name}}</a></td>
                       <td>{{major_id}}<br>{{minor_id}}</td>
-                      <td>{{room_num}}<br>{{colrow}}</td>
+                      <td><button type="submit" style="padding: 1px; font-size:14px;"class="btn btn-lg btn-default book">{{room_num}}<br>{{colrow}}</button></td>
                     </tr>
                     {% endfor %}
                   </tbody>
@@ -68,7 +68,7 @@
     <script>
       $('.book').click(function(){
         $('#map').show();
-        var location = $(this).children().last().text()
+        var location = $(this).text()
         $('#map>p').hide()
         $('#map').append('<p>'+location+'</p')
         $('html,body').scrollTop(0);
