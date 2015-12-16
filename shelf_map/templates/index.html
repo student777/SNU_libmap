@@ -32,18 +32,21 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th class="col-md-9">제목</th>
+                      <th class="col-md-7">제목</th>
                       <th class="col-md-1">번호</th>
                       <th class="col-md-2">위치</th>
+                      <th class="col-md-2">상태</th>
+
                     </tr>
                   </thead>
                   <tbody>
-                    {% for name, major_id, minor_id, room_num, colrow, link in info_list %}
+                    {% for name, major_id, minor_id, room_num, colrow, link, status in info_list %}
                     <tr>
                       <th scope="row">{{forloop.counter}}</th>
                       <td style="text-align:left"><a href="{{link}}">{{name}}</a></td>
                       <td>{{major_id}}<br>{{minor_id}}</td>
                       <td><button type="submit" style="padding: 1px; font-size:14px;"class="btn btn-lg btn-default book">{{room_num}}<br>{{colrow}}</button></td>
+                      <td>{{status}}</td>
                     </tr>
                     {% endfor %}
                   </tbody>

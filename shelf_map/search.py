@@ -15,13 +15,16 @@ def search_title(text):
             break
         name = item.a.text
         link = 'http://snu-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/' + item.a['href']
+        if item.find(class_="EXLAvailabilityCollectionName") is None or item.find(class_="EXLAvailabilityCollectionName").text.find('단행본') is -1:
+                continue
+        if item.find(class_="EXLResultStatusNotAvailable") is not None:
+            status = '대출중/예약'
+        else:
+            status = '이용가능'
         try:
             num1 = item.find(class_="EXLAvailabilityCallNumber").text
         except AttributeError:
             continue
-        if item.find(class_="EXLAvailabilityCollectionName").text.find('단행본') is -1:
-            continue
-        # if item.find(class_="EXLResultStatusNotAvailable") is not None:
         num2 = re.search(r"[-+]?\d*\.\d+|\d+", num1)
         if num2 is None:
             major_id = '확인불가'
@@ -45,7 +48,7 @@ def search_title(text):
             else:
                 room_num = '확인불가'
                 colrow = ''
-        info_list.append((name, major_id, minor_id, room_num, colrow, link))
+        info_list.append((name, major_id, minor_id, room_num, colrow, link, status))
         i += 1
     return info_list
 
