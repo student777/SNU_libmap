@@ -31,6 +31,8 @@ def search_title(text):
             major_id = num2.group()
             try:
                 minor_id = num1.split()[1]
+                if not minor_id[0].isalpha():
+                    minor_id = num1.split()[2]  # 大서가 처리
             except:
                 minor_id = '확인불가'
             # TODO: shelf=find_shelf(major_id, minor_id); name, room_num, colrow = shelf.name, shelf.major_id, shelf.minor, shelf.row+shelf.col;
