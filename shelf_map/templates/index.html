@@ -22,9 +22,9 @@
                 <button type="submit" class="btn btn-lg btn-default">검색</button>
               </form>
             </div>
-            
+
             <div id="map" style="display: none;"><img  width="100%" height="50%" src="/media/map.png"/></div>
-            
+
             {% if info_list %}
             <div>
               <table class="search_result table">
@@ -34,37 +34,38 @@
                       <th>#</th>
                       <th class="col-md-9">제목</th>
                       <th class="col-md-1">번호</th>
-                      <th class="col-md-2">위치</th>  
+                      <th class="col-md-2">위치</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for name, major_id, room_num, colrow in info_list %}
+                    {% for name, major_id, minor_id, room_num, colrow in info_list %}
                     <tr class="book">
                       <th scope="row">{{forloop.counter}}</th>
                       <td style="text-align:left">{{name}}</td>
-                      <td>{{major_id}}</td>
-                      <td>{{room_num}}자료실<br>{{colrow}}</td>
+                      <td>{{major_id}}<br>{{minor_id}}</td>
+                      <td>{{room_num}}<br>{{colrow}}</td>
                     </tr>
                     {% endfor %}
                   </tbody>
               </table>
             </div>
             {% endif %}
-        
+
           <div class="mastfoot">
-            <a target="_parent" style="font-size:15px" href="http://www.facebook.com/code4gwanak/?fref=ts">Code4Gwanak</a>&nbsp;&nbsp;<br>
-            <a target="_parent" href="http://snulibmap.wordpress.com/"> <i class="fa fa-wordpress fa-2x"></i></a>&nbsp;&nbsp;
-            <a target="_parent" href="http://github.com/student777/shelf_map/"><i class="fa fa-github fa-2x"></i></a>
+            <a target="_parent" style="font-size:15px" href="http://www.facebook.com/code4gwanak/?fref=ts">Code4Gwanak</a><br>
+            <a target="_parent" href="http://snulibmap.wordpress.com/"> <i class="fa fa-wordpress fa-2x"></i></a>&nbsp;
+            <a target="_parent" href="http://github.com/student777/shelf_map/"><i class="fa fa-github fa-2x"></i></a>&nbsp;
+            <a target="_parent" id="email"><i class="fa fa-envelope-o fa-2x"></i></a>
           </div>
 
         </div>
       </div>
     </div>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-    <script>        
+    <script>
       $('.book').click(function(){
         $('#map').show();
         var location = $(this).children().last().text()
@@ -72,8 +73,11 @@
         $('#map').append('<p>'+location+'</p')
         $('html,body').scrollTop(0);
       })
+      $('#email').click(function(){
+        alert('snulibmap@gmail.com')
+      })
     </script>
-    
+
   </body>
 </html>
 
