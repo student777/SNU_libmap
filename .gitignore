@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 migrations/
 key.pem
+*.pickle
+db.sqlite3
