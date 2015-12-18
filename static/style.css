@@ -86,3 +86,6 @@ body {
 th, td{
   text-align:center;
 }
+.right {
+  float:right;
+}

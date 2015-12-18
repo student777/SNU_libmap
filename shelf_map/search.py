@@ -18,9 +18,9 @@ def search_title(text):
         if item.find(class_="EXLAvailabilityCollectionName") is None or item.find(class_="EXLAvailabilityCollectionName").text.find('단행본') is -1:
                 continue
         if item.find(class_="EXLResultStatusNotAvailable") is not None:
-            status = '대출중/예약'
+            status = False
         else:
-            status = '이용가능'
+            status = True
         try:
             num1 = item.find(class_="EXLAvailabilityCallNumber").text
         except AttributeError:
