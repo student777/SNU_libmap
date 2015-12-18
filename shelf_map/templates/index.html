@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="/static/style.css" rel="stylesheet">
   </head>
@@ -22,7 +22,7 @@
           </form>
         </div>
 
-        <div id="map" style="display: none;"><img  width="100%" height="50%" src="/media/map.png"/></div>
+        <div id="map" style="display: none;"><img width="100%" height="50%" src="/media/map.png"/></div>
 
         {% if info_list %}
         <div>
@@ -46,7 +46,7 @@
           <tbody>
             {% for name, major_id, minor_id, room_num, colrow, link, status in info_list %}
             <tr>
-              <th style="color:{% if status %}lightgreen;{% else %}orangered;{% endif %} scope="row">{{forloop.counter}}</th>
+              <th style="color:{% if status %}lightgreen;{% else %}orangered;{% endif %}" scope="row">{{forloop.counter}}</th>
               <td style="text-align:left"><a target="_parent" href="{{link}}">{{name}}</a></td>
               <td>{{major_id}}<br>{{minor_id}}</td>
               <td><button style="padding: 1px; font-size:14px;" class="btn btn-lg btn-default book">{{room_num}}<br>{{colrow}}</button></td>
@@ -67,7 +67,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
       $('.book').click(function(){
         $('#map').show();
