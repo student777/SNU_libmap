@@ -6,3 +6,4 @@ search.py에서 minor_id parsing시 정규표현식 개선(?p<chr>\d+)
 multi-search, 장바구니
 구글 스프레드시트를 공개하여 1주일마다 DB 자동 업데이트(crontab)
 2자료실 大서가 인덱싱
+sqlite->postgresql
