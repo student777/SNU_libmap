@@ -1,6 +1,6 @@
 # TODO
 
-대분류 또는 알파펫 도서 검색,<br>
+검색결과 없음<br>
 search.py에서 minor_id parsing시 정규표현식 개선(?p<chr>\d+)<br>
 1-1, 7-1자료실 도서의 정체는 무엇인가<br>
 multi-search, 장바구니<br>

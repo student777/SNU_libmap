@@ -34,27 +34,29 @@ def search_title(text):
         elif num1.find('大') is not -1: # ex)大 294 D65b
             minor_id = num1.split()[2]
             major_id = '大' + num2.group()
-            room_num = '검색 미지원'
-            colrow = ''
+            shelf = find_shelf(major_id[1:], minor_id, '대')
+            room_num = shelf.room_num + '자료실'
+            colrow = shelf.row + shelf.col
         elif num2.group()[0].isalpha(): # ex)K781
             major_id = num2.group()
             minor_id = num1.split()[1]
-            room_num = '검색 미지원'
-            colrow = ''
+            shelf = find_shelf(major_id[1:], minor_id, major_id[0])
+            room_num = shelf.room_num + '자료실'
+            colrow = shelf.row + shelf.col
         else: # ex) 821.123
             major_id = num2.group()
             minor_id = num1.split()[1]
             shelf = find_shelf(major_id, minor_id)
             room_num = shelf.room_num + '자료실'
-            colrow = shelf.row+shelf.col
+            colrow = shelf.row + shelf.col
 
         info_list.append((name, major_id, minor_id, room_num, colrow, link, status))
         i += 1
     return info_list
 
 
-def find_shelf(major_id, minor_id):
-    shelf_list = Shelf.objects.exclude(room_num='1-1').exclude(room_num='7-1').filter(major_leadingChr=None)
+def find_shelf(major_id, minor_id, leading_chr=None):
+    shelf_list = Shelf.objects.exclude(room_num='1-1').exclude(room_num='7-1').filter(major_leadingChr=leading_chr)
     if shelf_list.filter(major_id=major_id).count() >= 1:
         if shelf_list.filter(major_id=major_id).filter(minor_id__lte=minor_id).count() >= 1:
             result = shelf_list.filter(major_id=major_id).filter(minor_id__lte=minor_id).last()
