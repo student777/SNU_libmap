@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from shelf_map.search import search_title
-from shelf_map.models import Shelf
 from django.views.decorators.clickjacking import xframe_options_exempt
 
 

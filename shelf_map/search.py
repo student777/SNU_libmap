@@ -52,6 +52,8 @@ def search_title(text):
 
         info_list.append((name, major_id, minor_id, room_num, colrow, link, status))
         i += 1
+    if len(info_list) == 0:
+        info_list = 0
     return info_list
 
 
