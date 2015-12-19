@@ -3,7 +3,7 @@ import re
 
 
 class Shelf(models.Model):
-    room_num = models.CharField(max_length=2)
+    room_num = models.CharField(max_length=4)
     col = models.CharField(max_length=4)
     row = models.CharField(max_length=4)
     major_id = models.DecimalField(max_digits=11, decimal_places=7)
