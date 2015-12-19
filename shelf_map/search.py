@@ -47,6 +47,7 @@ def search_title(text):
             shelf = find_shelf(major_id, minor_id)
             room_num = shelf.room_num + '자료실'
             colrow = shelf.row+shelf.col
+
         info_list.append((name, major_id, minor_id, room_num, colrow, link, status))
         i += 1
     return info_list
@@ -55,9 +56,12 @@ def search_title(text):
 def find_shelf(major_id, minor_id):
     shelf_list = Shelf.objects.exclude(room_num='1-1').exclude(room_num='7-1').filter(major_leadingChr=None)
     if shelf_list.filter(major_id=major_id).count() >= 1:
-        result = shelf_list.filter(major_id=major_id).filter(minor_id__lte=minor_id).last()
-    elif shelf_list.filter(major_id__lte=major_id):
+        if shelf_list.filter(major_id=major_id).filter(minor_id__lte=minor_id).count() >= 1:
+            result = shelf_list.filter(major_id=major_id).filter(minor_id__lte=minor_id).last()
+        else:
+            result = shelf_list.filter(major_id__lt=major_id).last()
+    elif shelf_list.filter(major_id__lte=major_id).count() >= 1:
         result = shelf_list.filter(major_id__lte=major_id).last()
     else:
-        result = Shelf(room_num='검색불가', col='', row='', major_id=0, minor='')
+        result = Shelf(room_num='검색불가', col='', row='', major_id=0, minor_id='')
     return result
