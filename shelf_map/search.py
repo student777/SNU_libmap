@@ -29,30 +29,32 @@ def search_title(text):
         if num2 is None:
             major_id = '확인불가'
             minor_id = ''
-            room_num = '확인불가'
-            colrow = ''
+            room_num = '?' \
+                       ''
+            rowcol = ''
         elif num1.find('大') is not -1: # ex)大 294 D65b
             minor_id = num1.split()[2]
             major_id = '大' + num2.group()
             shelf = find_shelf(major_id[1:], minor_id, '대')
-            room_num = shelf.room_num + '자료실'
-            colrow = shelf.row + shelf.col
+            room_num = shelf.room_num
+            rowcol = shelf.row + shelf.col
         elif num2.group()[0].isalpha(): # ex)K781
             major_id = num2.group()
             minor_id = num1.split()[1]
             shelf = find_shelf(major_id[1:], minor_id, major_id[0])
-            room_num = shelf.room_num + '자료실'
-            colrow = shelf.row + shelf.col
+            room_num = shelf.room_num
+            rowcol = shelf.row + shelf.col
         else: # ex) 821.123
             major_id = num2.group()
             minor_id = num1.split()[1]
             shelf = find_shelf(major_id, minor_id)
-            room_num = shelf.room_num + '자료실'
-            colrow = shelf.row + shelf.col
+            room_num = shelf.room_num
+            rowcol = shelf.row + shelf.col
 
-        info_list.append((name, major_id, minor_id, room_num, colrow, link, status))
+        info_list.append((name, major_id, minor_id, room_num, rowcol, link, status))
         i += 1
-    if len(info_list) == 0:
+
+    if len(info_list) == 0:  # 검색 결과가 없는 경우
         info_list = 0
     return info_list
 

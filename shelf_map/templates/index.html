@@ -19,7 +19,7 @@
           </form>
         </div>
 
-        <div id="map" style="display: none;"><img width="100%" height="50%" src="/media/map.png"/></div>
+        <div id="map" style="display: none;"><img width="100%" height="50%" src="/"/></div>
 
 
         {% if info_list == 0 %}
@@ -44,12 +44,12 @@
             </tr>
           </thead>
           <tbody>
-            {% for name, major_id, minor_id, room_num, colrow, link, status in info_list %}
+            {% for name, major_id, minor_id, room_num, rowcol, link, status in info_list %}
             <tr>
               <th style="color:{% if status %}lightgreen;{% else %}orangered;{% endif %}" scope="row">{{forloop.counter}}</th>
               <td style="text-align:left"><a target="_parent" href="{{link}}">{{name}}</a></td>
               <td>{{major_id}}<br>{{minor_id}}</td>
-              <td><button style="padding: 1px; font-size:14px;" class="btn btn-lg btn-default book">{{room_num}}<br>{{colrow}}</button></td>
+              <td><button data-room_num="{{room_num}}" data-rowcol="{{rowcol}}" style="padding: 1px; font-size:14px;" class="btn btn-lg btn-default book">{{room_num}}자료실<br>{{rowcol}}</button></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -71,10 +71,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
       $('.book').click(function(){
+        var room_num = $(this).attr("data-room_num");
+        var rowcol = $(this).attr("data-rowcol");
+        $('#map>img').attr('src', "http://52.193.11.166:8000/media/mapfile/"+room_num+'-'+rowcol+'.png');
         $('#map').show();
-        var location = $(this).text()
-        $('#map>p').hide()
-        $('#map').append('<p>'+location+'</p')
         $('html,body').scrollTop(0);
       })
       $('#email').click(function(){

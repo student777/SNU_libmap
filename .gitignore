@@ -6,3 +6,4 @@ key.pem
 *.pickle
 db.sqlite3
 .idea/
+media/mapfile/
