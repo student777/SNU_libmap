@@ -34,7 +34,18 @@ for i in range(0, a.nrows):
             pass
         sheet.write(i, j, x)
 
-
-
 wbk.save('test.xls')
+
+
+a = xlrd.open_workbook('3자료실.xlsx')
+a = a.sheet_by_index(0)
+wbk = xlwt.Workbook()
+sheet = wbk.add_sheet('Sheet 1', cell_overwrite_ok=True)
+for j in [23,24]:
+    for i in range(0,40):
+        sheet.write(2*i, j, '대'+str(a.cell_value(2*i, j)))
+        sheet.write(2*i+1, j, str(a.cell_value(2*i+1, j)))
+
+
+wbk.save('test.xlsx')
 
