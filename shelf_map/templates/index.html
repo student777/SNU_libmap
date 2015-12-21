@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="/static/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/magnific-popup.css">
   </head>
   <body>
     <div class="site-wrapper">
@@ -18,9 +19,6 @@
             <button type="submit" class="btn btn-lg btn-default">검색</button>
           </form>
         </div>
-
-        <div id="map" style="display: none;"><img width="100%" height="50%" src="/"/></div>
-
 
         {% if info_list == 0 %}
         <h3>'{{request.GET.title}}' 에 대한 검색 결과가 없습니다</h3>
@@ -49,7 +47,13 @@
               <th style="color:{% if status %}lightgreen;{% else %}orangered;{% endif %}" scope="row">{{forloop.counter}}</th>
               <td style="text-align:left"><a target="_parent" href="{{link}}">{{name}}</a></td>
               <td>{{major_id}}<br>{{minor_id}}</td>
-              <td><button data-room_num="{{room_num}}" data-rowcol="{{rowcol}}" style="padding: 1px; font-size:14px;" class="btn btn-lg btn-default book">{{room_num}}자료실<br>{{rowcol}}</button></td>
+              <td>
+                <a title="{{name}}, {{major_id}}, {{minor_id}}" class="image-popup-vertical-fit" href="/media/mapfile/{{room_num}}-{{rowcol}}.png">
+                    <button style="padding: 1px; font-size:14px;" class="btn btn-lg btn-default">
+                        {{room_num}}자료실<br>{{rowcol}}
+                    </button>
+                </a>
+              </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -69,18 +73,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/static/jquery.magnific-popup.js"></script>
     <script>
-      $('.book').click(function(){
-        var room_num = $(this).attr("data-room_num");
-        var rowcol = $(this).attr("data-rowcol");
-        $('#map>img').attr('src', "http://52.193.11.166:8000/media/mapfile/"+room_num+'-'+rowcol+'.png');
-        $('#map').show();
-        $('html,body').scrollTop(0);
-      })
       $('#email').click(function(){
         alert('snulibmap@gmail.com')
       })
     </script>
+    <script>
+        $(document).ready(function() {
+            $('.image-popup-vertical-fit').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                mainClass: 'mfp-img-mobile',
+                image: {
+                    verticalFit: true
+                }
+            });
+        });
+    </script>
   </body>
 </html>
-
