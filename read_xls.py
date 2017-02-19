@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 
 
 def main():
-    f = open("static/자료실.pickle", "rb")
+    f = open("docs/자료실.pickle", "rb")
     room_nums = pickle.load(f)
     f.close()
 
