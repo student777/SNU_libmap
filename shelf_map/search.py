@@ -6,7 +6,7 @@ import requests
 
 def search_title(text):
     url = 'http://snu-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/search.do?ct=facet&fctN=facet_library&fctV=MAIN&rfnGrp=1&rfnGrpCounter=1&vid=82SNU&mode=Basic&ct=Next%20Page&tab=book&fn=search&indx=61&dscnt=0&vl(freeText0)='
-    data = requests.get(url+text)
+    data = requests.get(url + text)
     soup = BeautifulSoup(data.text, 'html.parser')
     i = 0
     info_list = []
@@ -16,13 +16,14 @@ def search_title(text):
         name = item.a.text
         link = 'http://snu-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/' + item.a['href']
         if item.find(class_="EXLAvailabilityCollectionName") is None or item.find(class_="EXLAvailabilityCollectionName").text.find('단행본자료실') is -1:
-            continue # 규장각, 수원보존도서관, 1-1 및 7-1자료실(?), KOCKA서가 등 제외
+            # 규장각, 수원보존도서관, 1-1 및 7-1자료실(?), KOCKA서가 등 제외
+            continue
         if item.find(class_="EXLResultStatusNotAvailable") is not None:
             status = False
         else:
             status = True
         try:
-            num1 = item.find(class_="EXLAvailabilityCallNumber").text # major_id
+            num1 = item.find(class_="EXLAvailabilityCallNumber").text  # major_id
         except AttributeError:
             continue
         num2 = re.search(r"[a-zA-Z]?\d*\.\d+|[a-zA-Z]?\d+", num1)
@@ -31,27 +32,27 @@ def search_title(text):
             minor_id = ''
             room_num = '?' \
                        ''
-            rowcol = ''
-        elif num1.find('大') is not -1: # ex)大 294 D65b
+            row_col = ''
+        elif num1.find('大') is not -1:  # ex)大 294 D65b
             minor_id = num1.split()[2]
             major_id = '大' + num2.group()
             shelf = find_shelf(major_id[1:], minor_id, '대')
             room_num = shelf.room_num
-            rowcol = shelf.row + shelf.col
-        elif num2.group()[0].isalpha(): # ex)K781
+            row_col = shelf.row + shelf.col
+        elif num2.group()[0].isalpha():  # ex)K781
             major_id = num2.group()
             minor_id = num1.split()[1]
             shelf = find_shelf(major_id[1:], minor_id, major_id[0])
             room_num = shelf.room_num
-            rowcol = shelf.row + shelf.col
-        else: # ex) 821.123
+            row_col = shelf.row + shelf.col
+        else:  # ex) 821.123
             major_id = num2.group()
             minor_id = num1.split()[1]
             shelf = find_shelf(major_id, minor_id)
             room_num = shelf.room_num
-            rowcol = shelf.row + shelf.col
+            row_col = shelf.row + shelf.col
 
-        info_list.append((name, major_id, minor_id, room_num, rowcol, link, status))
+        info_list.append((name, major_id, minor_id, room_num, row_col, link, status))
         i += 1
 
     if len(info_list) == 0:  # 검색 결과가 없는 경우

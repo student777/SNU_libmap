@@ -1,7 +1,7 @@
 import xlrd
 import xlwt
 
-a = xlrd.open_workbook('6자료실.xlsx')
+a = xlrd.open_workbook('archive6.xlsx')
 a = a.sheet_by_index(0)
 wbk = xlwt.Workbook()
 sheet = wbk.add_sheet('Sheet 1', cell_overwrite_ok=True)
@@ -14,7 +14,7 @@ for j in [0,1,2,3,4,5,6,7,8,9,10,11,12]:
 wbk.save('test.xls')
 
 
-a = xlrd.open_workbook('6자료실.xlsx')
+a = xlrd.open_workbook('archive6.xlsx')
 a = a.sheet_by_index(0)
 wbk = xlwt.Workbook()
 sheet = wbk.add_sheet('Sheet 1', cell_overwrite_ok=True)
@@ -37,7 +37,7 @@ for i in range(0, a.nrows):
 wbk.save('test.xls')
 
 
-a = xlrd.open_workbook('3자료실.xlsx')
+a = xlrd.open_workbook('archive3.xlsx')
 a = a.sheet_by_index(0)
 wbk = xlwt.Workbook()
 sheet = wbk.add_sheet('Sheet 1', cell_overwrite_ok=True)

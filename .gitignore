@@ -1,9 +1,6 @@
-venv/
 __pycache__/
 *.pyc
 migrations/
-key.pem
 *.pickle
 db.sqlite3
 .idea/
-media/mapfile/

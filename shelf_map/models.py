@@ -11,14 +11,14 @@ class Shelf(models.Model):
     major_leadingChr = models.CharField(max_length=5, blank=True, null=True)
 
     class Meta:
-        ordering = ('major_id', 'minor_id', )
+        ordering = ('major_id', 'minor_id',)
 
     def __str__(self):
         return str(self.major_id) + ' ' + self.minor_id
 
 
 def create_shelf(room_num, col, row, major_id, minor_id):
-    IGNORE_CHRSET = ["", "-", "/"]
+    ignore_charset = ["", "-", "/"]
 
     a = Shelf()
 
@@ -27,7 +27,7 @@ def create_shelf(room_num, col, row, major_id, minor_id):
         a.save()
 
     elif isinstance(major_id, str):
-        if major_id in IGNORE_CHRSET:
+        if major_id in ignore_charset:
             pass
 
         elif major_id[0] == "대":
