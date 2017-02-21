@@ -1,95 +1,93 @@
 <html>
-  <head>
+<head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="/static/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/magnific-popup.css">
-  </head>
-  <body>
-    <div class="site-wrapper">
-      <div class="site-wrapper-inner">
+</head>
+<body>
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
         <div class="cover-container">
-        <div>
-          <a href="/"><img id="logo" width="70%" src="/media/logo.jpeg"/></a>
-          <form id="title_form">
-            <div class="form-group">
-              <label style="font-size:15px">제목 또는, 서가번호, 저자명을 입력해주세요</label>
-              <input placeholder="ex)총, 균, 쇠" type="text" class="form-control" name="title">
+            <div>
+                <a href="/"><img id="logo" width="70%" src="/media/logo.jpeg"/></a>
+                <form id="title_form">
+                    <div class="form-group">
+                        <label style="font-size:15px">제목 또는, 서가번호, 저자명을 입력해주세요</label>
+                        <input placeholder="ex)총, 균, 쇠" type="text" class="form-control" name="title">
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-default">검색</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-lg btn-default">검색</button>
-          </form>
-        </div>
 
-        {% if info_list == 0 %}
-        <h3>'{{request.GET.title}}' 에 대한 검색 결과가 없습니다</h3>
-        {% elif info_list %}
-        <div>
-          <table class="search_result table">
-         <caption>
-           <span>{{request.GET.title}} 에 대한 검색결과(최대 30권 검색)<br></span>
-           <span>'위치'를 클릭하면 지도를 볼 수 있습니다</span>
-           <span class="right">
-             <i style="color:orangered" class="fa fa-circle-o">예약/대출중</i>
-             <i class="fa fa-circle-o" style="color:lightgreen">대출가능</i>
-           </span>
-         </caption>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th class="col-md-10">제목</th>
-              <th class="col-md-1">번호</th>
-              <th class="col-md-1">위치</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for name, major_id, minor_id, room_num, rowcol, link, status in info_list %}
-            <tr>
-              <th style="color:{% if status %}lightgreen;{% else %}orangered;{% endif %}" scope="row">{{forloop.counter}}</th>
-              <td style="text-align:left"><a target="_parent" href="{{link}}">{{name}}</a></td>
-              <td>{{major_id}}<br>{{minor_id}}</td>
-              <td>
-                <a title="{{room_num}}자료실 {{major_id}} {{minor_id}}<br>{{name}}" class="image-popup-vertical-fit" href="/media/mapfile/{{room_num}}-{{rowcol}}.png">
-                    <button style="padding: 1px; font-size:14px;" class="btn btn-lg btn-default">
-                        {{room_num}}자료실<br>{{rowcol}}
-                    </button>
-                </a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-          </table>
-        </div>
-        {% endif %}
+            {% if info_list == 0 %}
+                <h3>'{{ request.GET.title }}' 에 대한 검색 결과가 없습니다</h3>
+            {% elif info_list %}
+                <div>
+                    <table class="search_result table">
+                        <caption>
+                            <span>{{ request.GET.title }} 에 대한 검색결과(최대 30권 검색)<br></span>
+                            <span>'위치'를 클릭하면 지도를 볼 수 있습니다</span>
+                            <span class="right">
+                                <i style="color:orangered" class="fa fa-circle-o">예약/대출중</i>
+                                <i class="fa fa-circle-o" style="color:lightgreen">대출가능</i>
+                            </span>
+                        </caption>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="col-md-10">제목</th>
+                            <th class="col-md-1">번호</th>
+                            <th class="col-md-1">위치</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for name, major_id, minor_id, room_num, rowcol, link, status in info_list %}
+                            <tr>
+                                <th style="color:{% if status %}lightgreen;{% else %}orangered;{% endif %}" scope="row">{{ forloop.counter }}</th>
+                                <td style="text-align:left"><a target="_parent" href="{{ link }}">{{ name }}</a></td>
+                                <td>{{ major_id }}<br>{{ minor_id }}</td>
+                                <td>
+                                    <a title="{{ room_num }}자료실 {{ major_id }} {{ minor_id }}<br>{{ name }}" class="image-popup-vertical-fit" href="/media/mapfile/{{ room_num }}-{{ rowcol }}.png">
+                                        <button style="padding: 1px; font-size:14px;" class="btn btn-lg btn-default">{{ room_num }}자료실<br>{{ rowcol }}</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
 
-        <div class="mastfoot">
-            <a target="_parent" style="font-size:15px" href="http://www.facebook.com/code4gwanak/">CodeForGwanak</a><br>
-            <a target="_parent" href="http://snulibmap.wordpress.com/"> <i class="fa fa-wordpress fa-2x"></i></a>&nbsp;
-            <a target="_parent" href="http://github.com/student777/shelf_map/"><i class="fa fa-github fa-2x"></i></a>&nbsp;
-            <a target="_parent" id="email"><i class="fa fa-envelope-o fa-2x"></i></a>
+            <div class="mastfoot">
+                <a target="_parent" style="font-size:15px" href="http://www.facebook.com/code4gwanak/">CodeForGwanak</a><br>
+                <a target="_parent" href="http://snulibmap.wordpress.com/"> <i class="fa fa-wordpress fa-2x"></i></a>
+                <a target="_parent" href="http://github.com/student777/shelf_map/"><i class="fa fa-github fa-2x"></i></a>
+                <a target="_parent" id="email"><i class="fa fa-envelope-o fa-2x"></i></a>
+            </div>
         </div>
-        </div>
-      </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="/static/jquery.magnific-popup.js"></script>
-    <script>
-      $('#email').click(function(){
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/static/jquery.magnific-popup.js"></script>
+<script>
+    $('#email').click(function () {
         alert('snulibmap@gmail.com')
-      })
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.image-popup-vertical-fit').magnificPopup({
-                type: 'image',
-                closeOnContentClick: true,
-                mainClass: 'mfp-img-mobile',
-                image: {
-                    verticalFit: true
-                }
-            });
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $('.image-popup-vertical-fit').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            mainClass: 'mfp-img-mobile',
+            image: {
+                verticalFit: true
+            }
         });
-    </script>
-  </body>
+    });
+</script>
+</body>
 </html>

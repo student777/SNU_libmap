@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from shelf_map.search import search_title
-from django.views.decorators.clickjacking import xframe_options_exempt
 
 
-@xframe_options_exempt
 def index(request):
     if request.GET.get('title'):
         title = request.GET.get('title')
