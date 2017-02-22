@@ -32,27 +32,31 @@ def search_title(text):
             minor_id = ''
             room_num = '?' \
                        ''
-            row_col = ''
+            row = ''
+            col = ''
         elif num1.find('大') is not -1:  # ex)大 294 D65b
             minor_id = num1.split()[2]
             major_id = '大' + num2.group()
             shelf = find_shelf(major_id[1:], minor_id, '대')
             room_num = shelf.room_num
-            row_col = shelf.row + shelf.col
+            row = shelf.row
+            col = shelf.col
         elif num2.group()[0].isalpha():  # ex)K781
             major_id = num2.group()
             minor_id = num1.split()[1]
             shelf = find_shelf(major_id[1:], minor_id, major_id[0])
             room_num = shelf.room_num
-            row_col = shelf.row + shelf.col
+            row = shelf.row
+            col = shelf.col
         else:  # ex) 821.123
             major_id = num2.group()
             minor_id = num1.split()[1]
             shelf = find_shelf(major_id, minor_id)
             room_num = shelf.room_num
-            row_col = shelf.row + shelf.col
+            row = shelf.row
+            col = shelf.col
 
-        info_list.append((name, major_id, minor_id, room_num, row_col, link, status))
+        info_list.append((name, major_id, minor_id, room_num, row, col, link, status))
         i += 1
 
     if len(info_list) == 0:  # 검색 결과가 없는 경우
